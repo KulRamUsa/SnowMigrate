@@ -1,0 +1,8 @@
+streamlit
+pandas
+jinja2
+psycopg2-binary
+oracledb
+teradatasql
+databricks-sql-connector
+snowflake-connector-python 
