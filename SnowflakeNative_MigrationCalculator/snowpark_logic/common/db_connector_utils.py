@@ -228,7 +228,7 @@ def get_source_db_connection(session, db_type: str, connection_params: dict):
                 dbname=database_name, 
                 user=user, 
                 password=password,
-                connect_timeout=10 # Example timeout
+                connect_timeout=10, # Example timeout
                 sslmode='require'
             )
             print("[DB_UTILS] Successfully connected to PostgreSQL.")
