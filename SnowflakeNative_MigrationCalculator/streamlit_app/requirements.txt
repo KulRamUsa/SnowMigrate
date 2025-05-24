@@ -6,4 +6,4 @@ oracledb
 teradatasql
 databricks-sql-connector
 snowflake-connector-python[pandas]
-pyarrow<19.0.0 
+pyarrow<19.0.0
