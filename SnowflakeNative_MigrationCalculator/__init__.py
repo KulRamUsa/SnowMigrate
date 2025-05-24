@@ -1,0 +1,1 @@
+# This file makes SnowflakeNative_MigrationCalculator a package 

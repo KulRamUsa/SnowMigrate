@@ -1,0 +1,111 @@
+# Migration Strategy Document: {{ source_type_display }} to Snowflake
+
+## Date Generated: {{ generation_date }}
+
+## 1. Executive Summary
+
+This document outlines a preliminary strategy and effort estimation for migrating the **{{ source_type_display }}** source database environment to **Snowflake**.
+
+The estimated total effort for this migration is **{{ total_hours }} hours**, with an overall complexity level assessed as **{{ complexity }}**.
+
+Key objectives for this migration include leveraging Snowflake's scalability, performance, and modern cloud data platform capabilities.
+
+## 2. Source Database Overview
+
+- **Source Database Type:** {{ source_type_display }}
+{% if connection_details %}
+- **Connection Details (Source):**
+    - Host: {{ connection_details.host }}
+    - Port: {{ connection_details.port }}
+    - Database/Service Name: {{ connection_details.database }}
+    {% if connection_details.dbType == 'snowflake' and connection_details.account %}
+    - Account: {{ connection_details.account }}
+    {% endif %}
+    {% if connection_details.schema %}
+    - Schema Analyzed (if specified): {{ connection_details.schema }}
+    {% endif %}
+{% endif %}
+
+### Object Counts Analyzed ({{ 'Schema: ' + connection_details.schema if connection_details and connection_details.schema and source_type == 'snowflake' else 'Full Database/Overall' }}):
+
+| Object Type | Count         |
+|-------------|---------------|
+| Tables      | {{ objects.tables | default(0) }}      |
+| Views       | {{ objects.views | default(0) }}       |
+| Procedures  | {{ objects.procedures | default(0) }}  |
+| Functions   | {{ objects.functions | default(0) }}   |
+| **Total Objects** | **{{ (objects.tables | default(0)) + (objects.views | default(0)) + (objects.procedures | default(0)) + (objects.functions | default(0)) }}** |
+
+{% if all_schemas_summary and all_schemas_summary|length > 0 and not (connection_details and connection_details.schema and source_type == 'snowflake') %}
+### All Discovered Schemas & Object Counts (Source):
+
+| Schema Name | Tables | Views | Procedures | Functions |
+|-------------|--------|-------|------------|-----------|
+{% for schema in all_schemas_summary %}
+| {{ schema.name }} | {{ schema.tables | default(0) }} | {{ schema.views | default(0) }} | {{ schema.procedures | default(0) }} | {{ schema.functions | default(0) }} |
+{% endfor %}
+{% endif %}
+
+## 3. Migration Effort Estimation
+
+- **Total Estimated Hours:** {{ total_hours }} hours
+- **Overall Complexity:** {{ complexity }}
+
+### Effort Breakdown by Object Type:
+
+{% if object_efforts %}
+| Object Type | Count         | Hours/Object | Total Hours   |
+|-------------|---------------|--------------|---------------|
+{% for type, effort in object_efforts.items() %}
+{% if effort.count > 0 %}
+| {{ type | capitalize }}      | {{ effort.count }}      | {{ effort.hours_per_object }}   | {{ effort.total_hours }}   |
+{% endif %}
+{% endfor %}
+{% else %}
+No specific object efforts available.
+{% endif %}
+
+## 4. Key Business Value Drivers (Migrating from {{ source_type_display }} to Snowflake)
+
+{% if business_value_add and business_value_add|length > 0 %}
+{% for point in business_value_add %}
+- {{ point }}
+{% endfor %}
+{% else %}
+- Enhanced scalability and performance.
+- Simplified data management and governance.
+- Accelerated analytics and business intelligence.
+- Potential for lower Total Cost of Ownership (TCO).
+- Improved data sharing and collaboration capabilities.
+{% endif %}
+
+## 5. Potential Risks & Considerations
+
+{% if risks and risks|length > 0 %}
+{% for risk in risks %}
+- {{ risk }}
+{% endfor %}
+{% else %}
+- Standard data migration risks apply (data loss, downtime, compatibility issues).
+{% endif %}
+
+## 6. Key Recommendations
+
+{% if recommendations and recommendations|length > 0 %}
+{% for rec in recommendations %}
+- {{ rec }}
+{% endfor %}
+{% else %}
+- Implement comprehensive backup and testing procedures.
+- Develop a detailed cutover and rollback plan.
+{% endif %}
+
+## 7. Next Steps
+
+1.  Conduct a detailed deep-dive analysis of complex objects, code, and data dependencies.
+2.  Refine the migration plan, timelines, and resource allocation based on detailed findings.
+3.  Develop a comprehensive testing and data validation strategy.
+4.  Initiate pilot migration for non-critical workloads.
+
+---
+*This document provides a preliminary estimate and strategy. Actual migration efforts may vary based on detailed analysis.*

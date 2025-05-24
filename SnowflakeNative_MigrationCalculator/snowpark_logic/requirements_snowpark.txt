@@ -1,0 +1,17 @@
+# requirements_snowpark.txt
+# Packages required for Snowpark Stored Procedures and UDFs.
+# These packages must be available in Snowflake's Anaconda channel or uploaded manually.
+
+# For document templating
+jinja2
+
+# For Pandas DataFrames (used in Streamlit app, but good to have if SPs evolve)
+pandas
+
+# Database drivers will be added here as needed, for example:
+psycopg2-binary>=2.9.0 # For PostgreSQL
+oracledb>=1.2.1 # For Oracle
+# pyodbc>=4.0.30 # For SQL Server (and other ODBC connections) # Temporarily commented out
+teradatasql>=17.20.0.0 # For Teradata
+databricks-sql-connector>=2.9.0 # For Databricks
+snowflake-connector-python>=2.7.0 # For Snowflake as a source (local testing)
